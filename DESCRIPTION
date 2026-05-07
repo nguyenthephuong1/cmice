@@ -1,0 +1,32 @@
+Package: cmice
+Type: Package
+Title: Constrained Multiple Imputation by Chained Equations
+Version: 1.0.0
+Date: 2026-05-05
+Authors@R: c(
+    person("Phuong The", "Nguyen", email = "phuong.nguyen@r.hit-u.ac.jp",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0000-0000-0000")))
+Description: Implements Constrained MICE (CMICE), a generalisable modification
+    to the Fully Conditional Specification (FCS) multiple imputation framework
+    that enforces observation-specific structural constraints on the admissible
+    category set during the multinomial sampling step. Designed for cancer
+    registry histology imputation where nonspecific morphology codes restrict
+    the admissible subtype set by diagnostic classification rules. Compatible
+    with the standard mice() / with() / pool() pipeline. See Nguyen (2026)
+    Statistics in Medicine (under review) for the methodological details.
+License: MIT + file LICENSE
+URL: https://github.com/nguyenthephuong1/cmice
+BugReports: https://github.com/nguyenthephuong1/cmice/issues
+Depends:
+    R (>= 4.0.0)
+Imports:
+    nnet,
+    mice (>= 3.14.0)
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+Encoding: UTF-8
+RoxygenNote: 7.3.1
+Config/testthat/edition: 3

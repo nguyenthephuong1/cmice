@@ -1,0 +1,25 @@
+citHeader("To cite the cmice R package in publications, please cite both the methodology paper and the software archive:")
+
+bibentry(
+  bibtype = "Article",
+  title   = "Constrained Multiple Imputation for Nonspecific Histological Type in Cancer Registries Data: Methods and Practical Guidance",
+  author  = person("Phuong The", "Nguyen"),
+  journal = "Statistics in Medicine",
+  year    = "2026",
+  note    = "Under review",
+  textVersion = paste(
+    "Nguyen, P. T. (2026).",
+    "Constrained Multiple Imputation for Nonspecific Histological Type in Cancer Registries Data:",
+    "Methods and Practical Guidance.",
+    "Statistics in Medicine (under review)."
+  )
+)
+
+bibentry(
+  bibtype = "Manual",
+  title   = "{cmice}: Constrained Multiple Imputation by Chained Equations",
+  author  = person("Phuong The", "Nguyen"),
+  year    = "2026",
+  note    = "R package version 1.0.0. Zenodo DOI: 10.5281/zenodo.XXXXXXX (resolved upon archival release)",
+  url     = "https://github.com/nguyenthephuong1/cmice"
+)

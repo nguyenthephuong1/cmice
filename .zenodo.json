@@ -1,0 +1,33 @@
+{
+  "title": "cmice: Constrained Multiple Imputation by Chained Equations for Structurally Constrained Categorical Data",
+  "description": "R implementation of CMICE (Constrained MICE), a generalisable modification to the FCS multiple imputation framework that enforces observation-specific structural constraints during the multinomial sampling step. Designed for cancer-registry histology imputation where nonspecific morphology codes (e.g., ICD-O-3 8010, 8046) restrict the admissible subtype set by diagnostic classification rules. Compatible with the standard mice() / with() / pool() pipeline. Companion code for: Nguyen P. Constrained Multiple Imputation for Nonspecific Histological Type in Cancer Registries Data: Methods and Practical Guidance. Statistics in Medicine, 2026 (under review).",
+  "creators": [
+    {
+      "name": "Nguyen, Phuong The",
+      "affiliation": "Hitotsubashi Institute for Advanced Study (HIAS), Hitotsubashi University, Tokyo, Japan",
+      "orcid": "0000-0000-0000-0000"
+    }
+  ],
+  "keywords": [
+    "multiple imputation",
+    "MICE",
+    "FCS",
+    "categorical data",
+    "structural constraints",
+    "cancer registries",
+    "histology",
+    "ICD-O",
+    "R package",
+    "epidemiology"
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/nguyenthephuong1/cmice",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}
