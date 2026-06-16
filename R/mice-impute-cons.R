@@ -12,6 +12,39 @@
 
 
 
+### Internal data-augmentation helper (White, Daniel & Royston, CSDA 2010),
+### bundled here so the package does not depend on the non-exported mice:::augment().
+.cmice_augment <- function(y, ry, x, wy, maxcat = 50) {
+  icod <- sort(unique(unclass(y)))
+  k <- length(icod)
+  if (k > maxcat) stop("Maximum number of categories (", maxcat, ") exceeded")
+  p <- ncol(x)
+  if (p == 0) return(list(y = y, ry = ry, x = x, wy = wy, w = rep(1, length(y))))
+  if (sum(!ry) == 1) return(list(y = y, ry = ry, x = x, wy = wy, w = rep(1, length(y))))
+
+  mean <- apply(x, 2, mean, na.rm = TRUE)
+  sd   <- sqrt(apply(x, 2, var, na.rm = TRUE))
+  minx <- apply(x, 2, min, na.rm = TRUE)
+  maxx <- apply(x, 2, max, na.rm = TRUE)
+  nr <- 2 * p * k
+  a <- matrix(mean, nrow = nr, ncol = p, byrow = TRUE)
+  b <- matrix(rep(c(rep.int(c(0.5, -0.5), k), rep.int(0, nr)), length = nr * p),
+              nrow = nr, ncol = p, byrow = FALSE)
+  cc <- matrix(sd, nrow = nr, ncol = p, byrow = TRUE)
+  d <- a + b * cc
+  d <- pmax(matrix(minx, nrow = nr, ncol = p, byrow = TRUE), d, na.rm = TRUE)
+  d <- pmin(matrix(maxx, nrow = nr, ncol = p, byrow = TRUE), d, na.rm = TRUE)
+  e <- rep(rep(icod, each = 2), p)
+
+  dimnames(d) <- list(paste0("AUG", seq_len(nrow(d))), dimnames(x)[[2]])
+  xa  <- rbind.data.frame(x, d)
+  ya  <- if (is.factor(y)) as.factor(levels(y)[c(y, e)]) else c(y, e)
+  rya <- c(ry, rep.int(TRUE, nr))
+  wya <- c(wy, rep.int(FALSE, nr))
+  wa  <- c(rep.int(1, length(y)), rep.int((p + 1) / nr, nr))
+  list(y = ya, ry = rya, x = xa, w = wa, wy = wya)
+}
+
 ### Core function (global constraint)
 mice.impute.cons <- function(y, ry, x, wy = NULL,
                              nnet.maxit = 100,
@@ -34,15 +67,8 @@ mice.impute.cons <- function(y, ry, x, wy = NULL,
     stop("Package 'nnet' is required for mice.impute.cons().")
   }
   
-  # Use mice's augment to handle empty predictors, weights, etc.
-  # (augment is internal; this is common practice for custom mice methods)
-  if (requireNamespace("mice", quietly = TRUE) && exists("augment", where = asNamespace("mice"), inherits = FALSE)) {
-    aug <- get("augment", envir = asNamespace("mice"))(y_chr, ry, as.matrix(x), wy)
-  } else if (exists("augment", mode = "function")) {
-    aug <- augment(y_chr, ry, as.matrix(x), wy)
-  } else {
-    stop("Could not find mice::augment(). Please load 'mice' or define augment().")
-  }
+  # Data augmentation via the bundled helper (avoids the non-exported mice:::augment()).
+  aug <- .cmice_augment(y_chr, ry, as.matrix(x), wy)
   
   x   <- aug$x
   y_c <- aug$y
