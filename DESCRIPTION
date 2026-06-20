@@ -5,7 +5,8 @@ Version: 1.0.0
 Date: 2026-06-20
 Authors@R: c(
     person("Phuong The", "Nguyen", email = "phuong.nguyen@r.hit-u.ac.jp",
-           role = c("aut", "cre")))
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-5093-9767")))
 Description: Implements Constrained MICE (CMICE), a generalisable modification
     to the Fully Conditional Specification (FCS) multiple imputation framework
     that enforces observation-specific structural constraints on the admissible
