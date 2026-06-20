@@ -2,7 +2,7 @@ Package: cmice
 Type: Package
 Title: Constrained Multiple Imputation by Chained Equations
 Version: 1.0.0
-Date: 2026-05-05
+Date: 2026-06-20
 Authors@R: c(
     person("Phuong The", "Nguyen", email = "phuong.nguyen@r.hit-u.ac.jp",
            role = c("aut", "cre"),
@@ -22,11 +22,12 @@ Depends:
     R (>= 4.0.0)
 Imports:
     nnet,
-    mice (>= 3.14.0)
+    stats
 Suggests:
+    mice (>= 3.14.0),
     testthat (>= 3.0.0),
     knitr,
     rmarkdown
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Config/testthat/edition: 3

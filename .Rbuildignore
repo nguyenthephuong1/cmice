@@ -1,0 +1,6 @@
+^\.zenodo\.json$
+^\.github$
+^\.git$
+^LICENSE\.md$
+^cmice\.Rproj$
+^\.Rproj\.user$

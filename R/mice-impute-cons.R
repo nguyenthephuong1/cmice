@@ -45,7 +45,46 @@
   list(y = ya, ry = rya, x = xa, w = wa, wy = wya)
 }
 
-### Core function (global constraint)
+#' Constrained Multiple Imputation: core (positional/global constraint) interface
+#'
+#' Imputes missing categorical values under structural constraints by fitting a
+#' weighted multinomial model (\code{nnet::multinom}) on the observed and
+#' augmented data, then zeroing the predicted probability of every constrained
+#' (inadmissible) category before row-wise sampling. This is the low-level
+#' engine; for label-validated constraints use the recommended
+#' \code{\link{mice.impute.cons_named}} wrapper, which checks \code{exclude}
+#' against \code{levels(y)} before delegating here.
+#'
+#' Compatible with the standard \code{mice()} / \code{with()} / \code{pool()}
+#' pipeline: register it as a custom \code{method} for the column to impute.
+#'
+#' @param y A vector to impute (factor or coercible to character).
+#' @param ry Logical vector indicating observed (\code{TRUE}) vs missing
+#'   (\code{FALSE}) entries of \code{y}.
+#' @param x Predictor matrix (numeric or coercible via \code{as.matrix}).
+#' @param wy Optional logical vector indicating which observations to impute;
+#'   defaults to \code{!ry}.
+#' @param nnet.maxit Maximum iterations for \code{nnet::multinom} (default 100).
+#' @param nnet.trace Logical; passed to \code{nnet::multinom} to toggle fitting
+#'   trace output (default \code{FALSE}).
+#' @param constrain Optional vector of category labels that are structurally
+#'   inadmissible for the imputed observations. Matched against the category
+#'   labels of \code{y}; constrained categories receive zero probability before
+#'   sampling. \code{NULL} (the default) applies no constraint.
+#' @param nnet.MaxNWts Maximum number of weights allowed in
+#'   \code{nnet::multinom} (default 1500).
+#' @param ... Additional arguments passed to \code{nnet::multinom}.
+#'
+#' @return A character vector of imputed values for the missing entries
+#'   (length \code{sum(wy)}). Returns \code{NA_character_} for rows where the
+#'   constraint set leaves no admissible category.
+#'
+#' @seealso \code{\link{mice.impute.cons_named}} for the label-validated
+#'   interface.
+#'
+#' @importFrom nnet multinom
+#' @importFrom stats predict runif var
+#' @export
 mice.impute.cons <- function(y, ry, x, wy = NULL,
                              nnet.maxit = 100,
                              nnet.trace = FALSE,
