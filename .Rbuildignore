@@ -1,6 +1,7 @@
 ^\.zenodo\.json$
 ^\.github$
 ^\.git$
+^dev$
 ^LICENSE\.md$
 ^cmice\.Rproj$
 ^\.Rproj\.user$

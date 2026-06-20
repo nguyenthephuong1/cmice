@@ -16,6 +16,11 @@ remotes::install_github("nguyenthephuong1/cmice")
 
 ## Quick start
 
+> The example below uses the **mice** package (a suggested, not required,
+> dependency of cmice) for the imputation pipeline, and dplyr for the
+> illustrative data preparation. Install them first if needed:
+> `install.packages(c("mice", "dplyr"))`.
+
 ```r
 library(mice)
 library(cmice)
